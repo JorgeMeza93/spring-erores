@@ -21,10 +21,11 @@ public class AppController {
 	}
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable Integer id, Model model){
-		Usuario usuario = usuarioService.obtenerPorId(id);
+	/*	Usuario usuario = usuarioService.obtenerPorId(id);
 		if(usuario == null){
-			throw new UsuarioNoencontradoException(id.toString());
-		}
+			throw new UsuarioNoencontradoException(id.toString());  
+		} */
+		Usuario usuario = usuarioService.obtenerPorIdOptional(id).orElseThrow( () -> new UsuarioNoencontradoException(id.toString())); 
 		model.addAttribute("usuario",usuario);
 		model.addAttribute("titulo", "Detalle del usuario ".concat(usuario.getNombre()));
 		return "ver";
